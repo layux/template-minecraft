@@ -13,7 +13,10 @@ import org.slf4j.Logger
     description = "I did it!",
     authors = ["Me"]
 )
-class VelocityTest @Inject constructor(private val server: ProxyServer, private val logger: Logger) {
+class VelocityTest @Inject constructor(
+    private val server: ProxyServer,
+    private val logger: Logger
+) {
     init {
         logger.info("Hello there! I made my first plugin with Velocity.")
     }
