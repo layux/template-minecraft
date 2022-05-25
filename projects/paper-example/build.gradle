@@ -1,0 +1,17 @@
+plugins {
+    id 'com.github.johnrengelman.shadow'
+}
+
+repositories {
+    maven { url = uri("https://repo.papermc.io/repository/maven-public/") }
+}
+
+dependencies {
+    compileOnly "io.papermc.paper:paper-api:$paper_api_version"
+}
+
+shadowJar {
+    archiveClassifier.set('')
+}
+
+tasks.build.dependsOn shadowJar
