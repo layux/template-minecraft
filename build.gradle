@@ -1,26 +1,38 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version "$kotlin_version"
+    id 'org.jetbrains.kotlin.jvm' version "$kotlin_version" apply false
 }
 
-group = 'io.layux'
-version = '1.0-SNAPSHOT'
+subprojects {
+    apply plugin: 'org.jetbrains.kotlin.jvm'
 
-repositories {
-    mavenCentral()
-}
+    group = 'io.layux'
+    version = '1.0-SNAPSHOT'
 
-dependencies {
-    testImplementation 'org.jetbrains.kotlin:kotlin-test'
-}
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 
-test {
-    useJUnitPlatform()
-}
+    repositories {
+        mavenCentral()
+    }
 
-compileKotlin {
-    kotlinOptions.jvmTarget = '17'
-}
+    dependencies {
+        testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    }
 
-compileTestKotlin {
-    kotlinOptions.jvmTarget = '17'
+    test {
+        useJUnitPlatform()
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        // Minecraft 1.18 (1.18-pre2) upwards uses Java 17.
+        it.options.release = 17
+    }
+
+    compileKotlin {
+        kotlinOptions.jvmTarget = '17'
+    }
+
+    compileTestKotlin {
+        kotlinOptions.jvmTarget = '17'
+    }
 }
