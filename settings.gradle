@@ -11,4 +11,4 @@ pluginManagement {
 
 rootProject.name = 'template-minecraft'
 
-include ':projects', ':projects:fabric-example'
+include ':projects', ':projects:fabric-example', ':projects:velocity-example'
