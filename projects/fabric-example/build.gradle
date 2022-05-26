@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version "$fabric_loom_version"
+    id 'fabric-loom'
 }
 
 repositories {
