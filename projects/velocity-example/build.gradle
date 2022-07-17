@@ -10,6 +10,6 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'com.velocitypowered:velocity-api:3.0.1'
-    kapt 'com.velocitypowered:velocity-api:3.0.1'
+    compileOnly "com.velocitypowered:velocity-api:$velocity_version"
+    kapt "com.velocitypowered:velocity-api:$velocity_version"
 }

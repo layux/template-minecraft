@@ -3,11 +3,14 @@ plugins {
 }
 
 repositories {
-    maven { url = uri("https://repo.papermc.io/repository/maven-public/") }
+    maven {
+        name 'papermc'
+        url 'https://repo.papermc.io/repository/maven-public/'
+    }
 }
 
 dependencies {
-    compileOnly "io.papermc.paper:paper-api:$paper_api_version"
+    compileOnly "io.papermc.paper:paper-api:$paper_version"
 }
 
 shadowJar {
