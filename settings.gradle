@@ -1,4 +1,4 @@
 
-rootProject.name = 'template-minecraft'
+rootProject.name = 'template-gradle-kotlin'
 
 include ':projects'
