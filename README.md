@@ -1,6 +1,6 @@
 # Gradle & Kotlin
 
-This is a template project for a Gradle project using Kotlin.
+This is a template for a Gradle project using Kotlin.
 
 ## How to use
 
