@@ -26,6 +26,12 @@ If you need to add a gradle plugin that is only used in a single module, you can
 
 We recommend adding versions inside the `gradle.properties` file and then referencing them in the `build.gradle` files. This makes it easier to update versions in the future.
 
+## Directory structure
+
+- [docs](/docs): Contains project documentation for example `.md` or `.html` files.
+- [docker](/docker): If your project uses docker it makes sense to add `docker-compose.yml` or `Dockerfile`s here.
+- [projects](/projects): Here you add all of the modules for your project, i.e. folders with `build.gradle`.
+
 ## Contributing
 
 If you have any suggestions or improvements please feel free to open an issue or pull request. If you have any questions please feel free to contact us in our [Discord server](https://discord.gg/VgbRfxkPeD).
