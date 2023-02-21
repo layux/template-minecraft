@@ -1,0 +1,23 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version "$kotlin_version" apply false
+}
+
+subprojects {
+    apply plugin: 'org.jetbrains.kotlin.jvm'
+
+    repositories {
+        mavenCentral()
+    }
+
+    dependencies {
+        testImplementation 'org.jetbrains.kotlin:kotlin-test'
+    }
+
+    test {
+        useJUnitPlatform()
+    }
+
+    kotlin {
+        jvmToolchain(19)
+    }
+}
