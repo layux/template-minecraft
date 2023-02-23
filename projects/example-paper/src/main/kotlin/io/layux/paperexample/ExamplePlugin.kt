@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.entity.Player
 import org.bukkit.material.Directional
 import org.bukkit.plugin.java.JavaPlugin
+import org.bukkit.plugin.java.annotation.plugin.Plugin
 
 /**
  * Entrypoint for the plugin.
@@ -18,6 +19,7 @@ import org.bukkit.plugin.java.JavaPlugin
  *
  * © 2023 Layux LLC. All rights reserved.
  */
+@Plugin(name = "ExamplePlugin", version = "1.0.0")
 class ExamplePlugin : JavaPlugin() {
     override fun onEnable() {
         logger.info("ExamplePlugin enabled!")
