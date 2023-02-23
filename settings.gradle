@@ -1,4 +1,5 @@
 
 rootProject.name = 'template-minecraft'
 
-include ':projects'
+include ':projects',
+        ':projects:example-paper'

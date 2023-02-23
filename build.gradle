@@ -1,5 +1,9 @@
 plugins {
     id 'org.jetbrains.kotlin.jvm' version "$kotlin_version" apply false
+    id 'io.papermc.paperweight.userdev' version "$paperweight_version" apply false
+    id 'net.minecrell.plugin-yml.bukkit' version "$plugin_yml_version" apply false
+    id 'com.github.johnrengelman.shadow' version "$shadow_version" apply false
+    id 'xyz.jpenilla.run-paper' version "$run_paper_version" apply false
 }
 
 subprojects {
@@ -17,7 +21,11 @@ subprojects {
         useJUnitPlatform()
     }
 
+    compileJava {
+        options.release.set(17)
+    }
+
     kotlin {
-        jvmToolchain(19)
+        jvmToolchain(17)
     }
 }
