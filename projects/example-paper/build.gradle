@@ -1,7 +1,7 @@
 plugins {
-    id 'io.papermc.paperweight.userdev'
-    id 'net.minecrell.plugin-yml.bukkit'
     id 'com.github.johnrengelman.shadow'
+    id 'io.papermc.paperweight.userdev'
+    id "org.jetbrains.kotlin.kapt"
     id 'xyz.jpenilla.run-paper'
 }
 
@@ -10,26 +10,15 @@ version = '1.0.0-SNAPSHOT'
 description = 'Example Paper plugin'
 
 dependencies {
-    paperweight.paperDevBundle("$paper_api_version")
-}
-
-assemble {
-    dependsOn(reobfJar)
-}
-
-bukkit {
-    name = 'ExamplePlugin'
-    version = project.version
-    description = project.description
-    authors = ['Layux']
-    website = 'https://layux.io'
-
-    main = "${group}.ExamplePlugin"
-    load = 'STARTUP'
-    apiVersion = '1.19'
+    paperweightDevelopmentBundle "io.papermc.paper:dev-bundle:$paper_api_version"
+    compileOnly "org.spigotmc:plugin-annotations:$plugin_annotations_version"
+    kapt "org.spigotmc:plugin-annotations:$plugin_annotations_version"
 }
 
 shadowJar {
     archiveClassifier.set('')
     destinationDirectory.set(rootProject.file('build/libs'))
 }
+
+tasks.assemble.dependsOn reobfJar
+tasks.build.dependsOn shadowJar
