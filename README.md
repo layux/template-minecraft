@@ -1,6 +1,6 @@
-# Gradle & Kotlin
+# Minecraft
 
-This is a template for a Gradle project using Kotlin.
+This is a template for a Minecraft project with Gradle and Kotlin.
 
 ## How to use
 
@@ -31,6 +31,8 @@ We recommend adding versions inside the `gradle.properties` file and then refere
 - [docs](/docs): Contains project documentation for example `.md` or `.html` files.
 - [docker](/docker): If your project uses docker it makes sense to add `docker-compose.yml` or `Dockerfile`s here.
 - [projects](/projects): Here you add all of the modules for your project, i.e. folders with `build.gradle`.
+  - [example-paper](/projects/example-paper): An example module for a paper plugin.
+  - [example-velocity](/projects/example-velocity): An example module for a velocity plugin.
 
 ## Contributing
 
