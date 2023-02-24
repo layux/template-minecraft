@@ -2,4 +2,5 @@
 rootProject.name = 'template-minecraft'
 
 include ':projects',
-        ':projects:example-paper'
+        ':projects:example-paper',
+        ':projects:example-velocity'
