@@ -1,7 +1,7 @@
 plugins {
     id 'com.github.johnrengelman.shadow'
     id 'io.papermc.paperweight.userdev'
-    id "org.jetbrains.kotlin.kapt"
+    id 'org.jetbrains.kotlin.kapt'
     id 'xyz.jpenilla.run-paper'
 }
 
@@ -21,4 +21,3 @@ shadowJar {
 }
 
 tasks.assemble.dependsOn reobfJar
-tasks.build.dependsOn shadowJar
