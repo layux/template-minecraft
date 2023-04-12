@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "id": "fabric_example",
+  "version": "${version}",
+  "name": "Fabric Example",
+  "description": "${description}",
+  "authors": [
+    "Layux"
+  ],
+  "contact": {
+    "homepage": "https://layux.io/",
+    "issues": "https://layux.io/",
+    "sources": "https://layux.io/"
+  },
+  "icon": "assets/fabric_example/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "io.layux.fabricexample.ExampleMod"
+    ]
+  },
+  "mixins": [
+    "fabric_example.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=${fabricloader}",
+    "fabric-api": ">=${fabric_api}",
+    "fabric-language-kotlin": ">=${fabric_language_kotlin}",
+    "minecraft": ">=${minecraft}",
+    "java": ">=${java}"
+  }
+}

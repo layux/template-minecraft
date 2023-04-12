@@ -1,6 +1,17 @@
+pluginManagement {
+    repositories {
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
 
 rootProject.name = 'template-minecraft'
 
 include ':projects',
+        ':projects:example-fabric',
         ':projects:example-paper',
         ':projects:example-velocity'
