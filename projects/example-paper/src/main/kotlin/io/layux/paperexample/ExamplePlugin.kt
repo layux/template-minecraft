@@ -1,11 +1,5 @@
 package io.layux.paperexample
 
-import org.bukkit.Material
-import org.bukkit.block.BlockFace
-import org.bukkit.command.Command
-import org.bukkit.command.CommandSender
-import org.bukkit.entity.Player
-import org.bukkit.material.Directional
 import org.bukkit.plugin.java.JavaPlugin
 import org.bukkit.plugin.java.annotation.plugin.Plugin
 
