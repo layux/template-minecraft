@@ -1,6 +1,9 @@
+import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
+
 plugins {
     id 'com.github.johnrengelman.shadow'
     id 'io.papermc.paperweight.userdev'
+    id 'net.minecrell.plugin-yml.bukkit'
     id 'org.jetbrains.kotlin.kapt'
     id 'xyz.jpenilla.run-paper'
 }
@@ -9,10 +12,22 @@ group = 'io.layux.paperexample'
 version = '1.0.0-SNAPSHOT'
 description = 'Example Paper plugin'
 
+ext {
+    projectName = 'Example'
+}
+
 dependencies {
     paperweightDevelopmentBundle "io.papermc.paper:dev-bundle:$paper_api_version"
-    compileOnly "org.spigotmc:plugin-annotations:$plugin_annotations_version"
-    kapt "org.spigotmc:plugin-annotations:$plugin_annotations_version"
+}
+
+bukkit {
+    name = "${ext.projectName}"
+    version = project.version
+    description = project.description
+    load = BukkitPluginDescription.PluginLoadOrder.STARTUP
+    main = "${group}.ExamplePlugin"
+    apiVersion = "1.19"
+    authors = ["Layux"]
 }
 
 shadowJar {
