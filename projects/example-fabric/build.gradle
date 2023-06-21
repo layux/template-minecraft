@@ -5,6 +5,7 @@ plugins {
 version = '1.0.0'
 group = 'io.layux.bingo.fabric'
 description = 'Example Fabric mod'
+ext.mod_id = 'fabric_example'
 
 dependencies {
     minecraft "com.mojang:minecraft:$minecraft_version"
@@ -12,6 +13,41 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:$fabric_loader_version"
     modImplementation "net.fabricmc.fabric-api:fabric-api:$fabric_version"
     modImplementation "net.fabricmc:fabric-language-kotlin:$fabric_language_kotlin_version"
+}
+
+loom {
+    splitEnvironmentSourceSets()
+
+    mods {
+        "$mod_id" {
+            sourceSet sourceSets.main
+            sourceSet sourceSets.client
+        }
+    }
+
+    runs {
+        // This adds a new gradle task that runs the datagen API: "gradlew runDatagen"
+        datagen {
+            inherit server
+            name "Data Generation"
+            vmArg "-Dfabric-api.datagen"
+            vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
+            vmArg "-Dfabric-api.datagen.modid=fabric-example"
+
+            runDir "build/datagen"
+        }
+    }
+}
+
+sourceSets {
+    // Add the generated resources to the main source set
+    main {
+        resources {
+            srcDirs += [
+                    'src/main/generated'
+            ]
+        }
+    }
 }
 
 java {
@@ -24,6 +60,7 @@ java {
 processResources {
     filesMatching('fabric.mod.json') {
         expand([
+                mod_id: project.mod_id,
                 description: project.description,
                 version: project.version,
                 fabricloader: "$fabric_loader_version",

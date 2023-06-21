@@ -1,4 +1,4 @@
-package io.layux.fabricexample
+package io.layux.example
 
 import net.fabricmc.api.ModInitializer
 import org.slf4j.Logger
@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory
  */
 class ExampleMod : ModInitializer {
     companion object {
-        const val MOD_ID = "fabricexample"
+        const val MOD_ID = "fabric_example"
         val LOGGER: Logger = LoggerFactory.getLogger(MOD_ID)
     }
 
