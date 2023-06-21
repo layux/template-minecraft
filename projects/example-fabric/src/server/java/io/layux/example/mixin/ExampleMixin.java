@@ -1,6 +1,6 @@
-package io.layux.fabricexample.mixin;
+package io.layux.example.mixin;
 
-import io.layux.fabricexample.ExampleMod;
+import io.layux.example.ExampleMod;
 import net.minecraft.client.gui.screen.TitleScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

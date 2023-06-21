@@ -1,4 +1,4 @@
-package io.layux.fabricexample
+package io.layux.example
 
 import net.fabricmc.api.ModInitializer
 import org.slf4j.Logger
