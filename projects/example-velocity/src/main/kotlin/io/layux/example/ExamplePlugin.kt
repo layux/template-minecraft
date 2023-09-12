@@ -1,4 +1,4 @@
-package io.layux.velocityexample
+package io.layux.example
 
 import com.google.inject.Inject
 import com.velocitypowered.api.event.Subscribe

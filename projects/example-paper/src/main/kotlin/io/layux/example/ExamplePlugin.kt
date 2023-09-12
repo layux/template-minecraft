@@ -1,4 +1,4 @@
-package io.layux.paperexample
+package io.layux.example
 
 import org.bukkit.plugin.java.JavaPlugin
 

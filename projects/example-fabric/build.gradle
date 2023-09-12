@@ -2,15 +2,18 @@ plugins {
     id 'fabric-loom'
 }
 
+group = 'io.layux.example'
 version = '1.0.0'
-group = 'io.layux.bingo.fabric'
 description = 'Example Fabric mod'
-ext.mod_id = 'fabric_example'
+ext.mod_id = 'fabric-example'
+ext.mod_name = 'Fabric Example'
 
 dependencies {
+    // External dependencies
     minecraft "com.mojang:minecraft:$minecraft_version"
     mappings "net.fabricmc:yarn:$yarn_mappings_version:v2"
     modImplementation "net.fabricmc:fabric-loader:$fabric_loader_version"
+
     modImplementation "net.fabricmc.fabric-api:fabric-api:$fabric_version"
     modImplementation "net.fabricmc:fabric-language-kotlin:$fabric_language_kotlin_version"
 }
@@ -32,7 +35,7 @@ loom {
             name "Data Generation"
             vmArg "-Dfabric-api.datagen"
             vmArg "-Dfabric-api.datagen.output-dir=${file("src/main/generated")}"
-            vmArg "-Dfabric-api.datagen.modid=fabric-example"
+            vmArg "-Dfabric-api.datagen.modid=$mod_id"
 
             runDir "build/datagen"
         }
@@ -43,9 +46,7 @@ sourceSets {
     // Add the generated resources to the main source set
     main {
         resources {
-            srcDirs += [
-                    'src/main/generated'
-            ]
+            srcDirs += ['src/main/generated']
         }
     }
 }
@@ -55,15 +56,19 @@ java {
     // if it is present.
     // If you remove this line, sources will not be generated.
     withSourcesJar()
+
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
 }
 
 processResources {
     filesMatching('fabric.mod.json') {
         expand([
                 mod_id: project.mod_id,
+                mod_name: project.mod_name,
                 description: project.description,
                 version: project.version,
-                fabricloader: "$fabric_loader_version",
+                fabric_loader: "$fabric_loader_version",
                 fabric_api: "$fabric_version",
                 fabric_language_kotlin: "$fabric_language_kotlin_version",
                 minecraft: "$minecraft_version",

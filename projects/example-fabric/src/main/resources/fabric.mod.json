@@ -1,36 +1,52 @@
 {
-  "schemaVersion": 1,
-  "id": "${mod_id}",
-  "version": "${version}",
-  "name": "Fabric Example",
-  "description": "${description}",
-  "authors": [
-    "Layux"
-  ],
-  "contact": {
-    "homepage": "https://layux.io/",
-    "issues": "https://layux.io/",
-    "sources": "https://layux.io/"
-  },
-  "icon": "assets/fabric_example/icon.png",
-  "environment": "*",
-  "entrypoints": {
-    "main": [
-      "io.layux.example.ExampleMod"
-    ]
-  },
-  "mixins": [
-    "fabric_example.mixins.json",
-    {
-      "config": "fabric_example_client.mixins.json",
-      "environment": "client"
-    }
-  ],
-  "depends": {
-    "fabricloader": ">=${fabricloader}",
-    "fabric-api": ">=${fabric_api}",
-    "fabric-language-kotlin": ">=${fabric_language_kotlin}",
-    "minecraft": ">=${minecraft}",
-    "java": ">=${java}"
-  }
+	"schemaVersion": 1,
+	"id": "${mod_id}",
+	"name": "${mod_name}",
+	"version": "${version}",
+	"description": "${description}",
+	"authors": ["Layux"],
+	"contact": {
+		"homepage": "https://layux.io/",
+		"sources": "https://github.com/layux/template-minecraft"
+	},
+	"license": "CC0-1.0",
+	"icon": "assets/fabric-example/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			{
+				"value": "io.layux.example.ExampleMod",
+				"adapter": "kotlin"
+			}
+		],
+		"client": [
+			{
+				"value": "io.layux.example.client.ExampleModClient",
+				"adapter": "kotlin"
+			}
+		],
+		"fabric-datagen": [
+			{
+				"value": "io.layux.example.data.ExampleModDataGenerator",
+				"adapter": "kotlin"
+			}
+		]
+	},
+	"mixins": [
+		"fabric-example.mixins.json",
+		{
+			"config": "fabric-example-client.mixins.json",
+			"environment": "client"
+		}
+	],
+	"depends": {
+		"fabricloader": ">=${fabric_loader}",
+		"minecraft": "~${minecraft}",
+		"java": ">=${java}",
+		"fabric-api": "${fabric_api}",
+		"fabric-language-kotlin": ">=${fabric_language_kotlin}"
+	},
+	"suggests": {
+		"another-mod": "*"
+	}
 }
