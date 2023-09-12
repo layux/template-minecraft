@@ -3,6 +3,11 @@ plugins {
     id 'org.jetbrains.kotlin.kapt'
 }
 
+group = 'io.layux.example'
+version = '1.0.0'
+description = 'Example Fabric mod'
+ext.plugin_name = 'ExamplePlugin'
+
 repositories {
     maven {
         name = 'papermc'
@@ -17,7 +22,7 @@ dependencies {
 
 shadowJar {
     archiveClassifier.set('')
-    destinationDirectory.set(rootProject.file('build/libs'))
+    archiveBaseName.set(project.plugin_name)
 }
 
 tasks.build.dependsOn shadowJar
