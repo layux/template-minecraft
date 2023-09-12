@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
     id 'com.github.johnrengelman.shadow' version "$shadow_version" apply false
     id 'fabric-loom' version "$fabric_loom_version" apply false
@@ -8,7 +10,10 @@ plugins {
     id 'xyz.jpenilla.run-paper' version "$run_paper_version" apply false
 }
 
+def toolchainVersion = Integer.parseInt("$java_version")
+
 subprojects {
+    apply plugin: 'java'
     apply plugin: 'org.jetbrains.kotlin.jvm'
 
     repositories {
@@ -19,12 +24,12 @@ subprojects {
         testImplementation 'org.jetbrains.kotlin:kotlin-test'
     }
 
-    compileJava {
-        options.release.set(17)
+    tasks.withType(JavaCompile).configureEach {
+        it.options.release.set(toolchainVersion)
     }
 
-    kotlin {
-        jvmToolchain(17)
+    tasks.withType(KotlinCompile).configureEach {
+        it.kotlinOptions.jvmTarget = toolchainVersion
     }
 
     test {
