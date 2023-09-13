@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'io.layux.example'
-version = '1.0.0'
+version = '0.0.1'
 description = 'Example Velocity plugin'
 ext.plugin_name = 'ExamplePlugin'
 
@@ -21,7 +21,7 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
     // Internal dependencies
-    implementation project(':projects:example-common')
+    // implementation project(':projects:example-common')
 
     // External dependencies
     compileOnly "com.velocitypowered:velocity-api:$velocity_api_version"
@@ -31,6 +31,20 @@ dependencies {
 shadowJar {
     archiveClassifier.set('')
     archiveBaseName.set(project.plugin_name)
+}
+
+publishing {
+    publications {
+        gpr(MavenPublication) {
+            // Since we are using shadowJar, we need to use the shadowJar task
+            // to get the artifact
+            artifact shadowJar
+            group = project.group
+            version = project.version
+
+            println "Publishing to GitHub Packages '${group}:${name}:${version}'"
+        }
+    }
 }
 
 tasks.build.dependsOn shadowJar
