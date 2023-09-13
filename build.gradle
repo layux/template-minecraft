@@ -37,7 +37,7 @@ subprojects {
     }
 }
 
-static def getAffectedProjects() {
+def getAffectedProjects() {
     // Look for the main branch since we may use a different name
     // for the main branch
     def mainBranch = getProjectMainBranch()
