@@ -5,7 +5,7 @@ plugins {
 
 group = 'io.layux.example'
 version = '1.0.0'
-description = 'Example Fabric mod'
+description = 'Example Velocity plugin'
 ext.plugin_name = 'ExamplePlugin'
 
 repositories {
