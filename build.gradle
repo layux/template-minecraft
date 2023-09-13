@@ -36,3 +36,85 @@ subprojects {
         useJUnitPlatform()
     }
 }
+
+static def getAffectedProjects() {
+    // Look for the main branch since we may use a different name
+    // for the main branch
+    def mainBranch = getProjectMainBranch()
+    println "Detected main branch: $mainBranch"
+
+    // Fetch the latest changes from the main branch on remote
+    "git fetch origin $mainBranch".execute().waitFor()
+
+    // Get the list of changed files in the current branch
+    // compared to the main branch
+    def changedFiles = "git diff --name-only $mainBranch".execute().text.readLines().collect { it.trim() }
+
+    // Convert this list of files to a set of affected project names.
+    // Also filter our nulls, which are returned if a file is not
+    // part of a project.
+    def projectNames = changedFiles.collect {
+        // Split the file path into segments, we need the first segment
+        // to determine if its part of the projects/ directory
+        def segments = it.split('/')
+
+        if (segments[0] != 'projects' || segments.size() < 2) {
+            // If the file is not in the projects/ directory or
+            // is not in a subdirectory of projects/, then it is not
+            // part of a project
+            return null
+        }
+
+        return ":projects:${segments[1]}"
+    }.findAll { it != null }.toSet()
+
+    // Get the actual projects matching the names, throw an error if
+    // any of the names are invalid
+    def affectedProjects = projectNames.collect {
+        def project = project(it)
+
+        if (project == null) {
+            throw new GradleException("Invalid project name: $it")
+        }
+
+        return project
+    }
+
+    return affectedProjects
+}
+
+static def getProjectMainBranch() {
+    return "git symbolic-ref refs/remotes/origin/HEAD".execute().text.trim().replaceFirst('refs/remotes/origin/', '')
+}
+
+static def getAffectedProjectsName(List<Project> affectedProjects) {
+    if (affectedProjects.size() == 0) {
+        return 'none'
+    }
+
+    return affectedProjects.collect { it.name }.join(', ')
+}
+
+tasks.register('buildAffected') {
+    group = 'affected'
+    description = 'Builds projects affected by changes in the current branch'
+
+    // Print a nice list of affected projects
+    def affectedProjects = getAffectedProjects()
+    println "Building affected projects: ${getAffectedProjectsName(affectedProjects)}."
+
+    // Make our task depend on the build task of each project
+    dependsOn affectedProjects.collect { it.tasks.named('build') }
+}
+
+tasks.register('publishAffected') {
+    group = 'affected'
+    description = 'Publishes projects affected by changes in the current branch'
+
+    // Print a nice list of affected projects
+    def affectedProjects = getAffectedProjects()
+    println "Publishing affected projects: ${getAffectedProjectsName(affectedProjects)}."
+
+    // Make our task depend on the publish task of each project
+    dependsOn affectedProjects.collect { it.tasks.named('publish') }
+}
