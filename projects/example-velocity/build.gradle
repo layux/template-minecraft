@@ -1,3 +1,5 @@
+import proguard.gradle.ProGuardTask
+
 plugins {
     id 'com.github.johnrengelman.shadow'
     id 'org.jetbrains.kotlin.kapt'
@@ -20,23 +22,54 @@ dependencies {
     implementation "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
 
-    // Internal dependencies
-    // implementation project(':projects:example-common')
-
     // External dependencies
     compileOnly "com.velocitypowered:velocity-api:$velocity_api_version"
     kapt "com.velocitypowered:velocity-api:$velocity_api_version"
 }
 
-shadowJar {
-    archiveClassifier.set('')
-    archiveBaseName.set(project.plugin_name)
+// Obfuscate the shaded jar using ProGuard
+def jarFile = shadowJar.outputs.files.singleFile
+def proguardJar = file("$buildDir/libs/${project.name}-proguard.jar")
+
+println "ProGuarding ${jarFile.name} to ${proguardJar.name}"
+
+tasks.register('proguard', ProGuardTask) {
+    //dependsOn shadowJar
+
+    group = 'build'
+    description = 'Runs ProGuard on the shaded jar'
+
+    outputs.upToDateWhen { false }
+    configuration 'configuration.pro'
+
+    injars jarFile
+    outjars proguardJar
+    // Include all runtime dependencies
+    libraryjars configurations.findByName('runtimeClasspath').getFiles()
+    // Java 8
+    libraryjars "${System.getProperty("java.home")}/lib/rt.jar"
+    // Java 9+ compatibility
+    libraryjars "${System.getProperty("java.home")}/jmods/java.base.jmod"
+    libraryjars "${System.getProperty("java.home")}/jmods/java.desktop.jmod"
+    libraryjars "${System.getProperty("java.home")}/jmods/java.logging.jmod"
+    libraryjars "${System.getProperty("java.home")}/jmods/jdk.unsupported.jmod"
+
+    doLast {
+        if (!jarFile.delete())
+            throw new IllegalStateException("Failed to delete ${jarFile.name}")
+
+        if (!proguardJar.renameTo(jarFile))
+            throw new IllegalStateException("Failed to rename ${proguardJar.name} to ${jarFile.name}")
+    }
 }
 
+jar.finalizedBy shadowJar
+
+// Publish the obfuscated jar to our artifact repository
 publishing {
     publications {
         gpr(MavenPublication) {
-            artifact shadowJar
+            artifact proguardJar
             group = project.group
             version = project.version
         }
