@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  proxy:
+    image: itzg/bungeecord
+    restart: on-failure
+    env_file: ../.env
+    environment:
+      TYPE: 'velocity'
+      MAX_MEMORY: '2G'
+      JVM_OPTS: '-XX:+UseG1GC -XX:G1HeapRegionSize=4M -XX:+UnlockExperimentalVMOptions -XX:+ParallelRefProcEnabled -XX:+AlwaysPreTouch -XX:MaxInlineLevel=15'
+      ENV_VARIABLE_PREFIX: 'PROXY_'
+    volumes:
+      - ../config/proxy/velocity.toml:/config/velocity.toml
+      - ../config/proxy/forwarding-secret.txt:/config/forwarding-secret.txt
+      - ../projects/example-velocity/build/libs/ExamplePlugin-1.0.0.jar:/plugins/ExamplePlugin-1.0.0.jar
+      # - ./volumes/proxy:/server # Uncomment to use a persistent volume and inspect files
+    ports:
+      - '25565:25565'
