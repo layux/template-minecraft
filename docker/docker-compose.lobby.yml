@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  lobby:
+    image: itzg/minecraft-server
+    restart: on-failure
+    env_file: ../.env
+    environment:
+      TYPE: 'purpur'
+      INIT_MEMORY: '512M'
+      MAX_MEMORY: '2G'
+      ENV_VARIABLE_PREFIX: 'LOBBY_'
+    volumes:
+      - ../config/lobby/bukkit.yml:/config/bukkit.yml
+      - ../config/lobby/paper-global.yml:/config/config/paper-global.yml
+      - ../config/lobby/paper-world-defaults.yml:/config/config/paper-world-defaults.yml
+      - ../config/lobby/pufferfish.yml:/config/pufferfish.yml
+      - ../config/lobby/purpur.yml:/config/purpur.yml
+      - ../config/lobby/server.properties:/config/server.properties
+      - ../config/lobby/spigot.yml:/config/spigot.yml
+      # - ./volumes/lobby:/data # Uncomment to use a persistent volume and inspect files
