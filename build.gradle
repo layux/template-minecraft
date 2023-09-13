@@ -42,6 +42,7 @@ subprojects {
             maven {
                 name = 'github-packages'
                 url = uri("https://maven.pkg.github.com/layux/template-minecraft")
+
                 credentials {
                     username = project.findProperty('gpr.user') ?: System.getenv('GITHUB_USER')
                     password = project.findProperty('gpr.key') ?: System.getenv('GITHUB_TOKEN')
