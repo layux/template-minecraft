@@ -9,7 +9,7 @@ name: Build and publish affected projects
 on:
   workflow_run:
     workflows: ['Test all projects']
-    branches: ['template-minecraft']
+    branches: ['main']
     types:
       - completed
 
