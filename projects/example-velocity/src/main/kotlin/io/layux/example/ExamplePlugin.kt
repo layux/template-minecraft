@@ -5,7 +5,6 @@ import com.velocitypowered.api.event.proxy.ProxyInitializeEvent
 import com.velocitypowered.api.plugin.Plugin
 import com.velocitypowered.api.plugin.annotation.DataDirectory
 import com.velocitypowered.api.proxy.ProxyServer
-import io.layux.example.component.DaggerExamplePluginComponent
 import io.layux.example.greeter.infrastructure.listener.PlayerEventsListener
 import io.layux.example.greeter.infrastructure.module.GreeterModule
 import io.layux.example.greeter.infrastructure.module.VelocityModule
@@ -33,7 +32,7 @@ class ExamplePlugin @Inject constructor(
     fun onProxyInitialization(event: ProxyInitializeEvent) {
         DaggerExamplePluginComponent.builder()
             .velocityModule(VelocityModule(this, server, logger))
-            .exampleModule(GreeterModule())
+            .greeterModule(GreeterModule())
             .build()
             .inject(this)
 

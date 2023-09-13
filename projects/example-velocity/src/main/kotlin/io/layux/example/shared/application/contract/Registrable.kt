@@ -1,4 +1,4 @@
-package io.layux.example.greeter.domain.contract
+package io.layux.example.shared.application.contract
 
 /**
  * This interface defines the contract for a registrable object.

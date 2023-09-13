@@ -4,7 +4,9 @@ import com.velocitypowered.api.event.Subscribe
 import com.velocitypowered.api.event.player.PlayerChatEvent
 import com.velocitypowered.api.proxy.ProxyServer
 import io.layux.example.ExamplePlugin
-import io.layux.example.greeter.domain.contract.Registrable
+import io.layux.example.greeter.application.dto.GreetPlayerInput
+import io.layux.example.greeter.application.usecase.GreetPlayerUseCase
+import io.layux.example.shared.application.contract.Registrable
 import net.kyori.adventure.text.Component
 import javax.inject.Inject
 
@@ -18,7 +20,8 @@ import javax.inject.Inject
  */
 class PlayerEventsListener @Inject constructor(
     private val plugin: ExamplePlugin,
-    private val proxyServer: ProxyServer
+    private val proxyServer: ProxyServer,
+    private val greetPlayerUseCase: GreetPlayerUseCase
 ) : Registrable {
     override fun register() {
         proxyServer.eventManager.register(plugin, this)
@@ -26,6 +29,6 @@ class PlayerEventsListener @Inject constructor(
 
     @Subscribe
     fun handlePlayerChatEvent(event: PlayerChatEvent) {
-        event.player.sendMessage(Component.text("Hello from Velocity!"))
+        greetPlayerUseCase.execute(GreetPlayerInput(event.player))
     }
 }

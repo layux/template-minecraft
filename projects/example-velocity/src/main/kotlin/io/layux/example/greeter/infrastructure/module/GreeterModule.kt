@@ -4,7 +4,10 @@ import com.velocitypowered.api.proxy.ProxyServer
 import dagger.Module
 import dagger.Provides
 import io.layux.example.ExamplePlugin
+import io.layux.example.greeter.application.contract.MessageProvider
+import io.layux.example.greeter.application.usecase.GreetPlayerUseCase
 import io.layux.example.greeter.infrastructure.listener.PlayerEventsListener
+import io.layux.example.greeter.infrastructure.provider.SimpleMessageProvider
 import javax.inject.Singleton
 
 /**
@@ -19,7 +22,19 @@ import javax.inject.Singleton
 class GreeterModule {
     @Provides
     @Singleton
-    fun providePlayerEventsListener(plugin: ExamplePlugin, proxyServer: ProxyServer): PlayerEventsListener {
-        return PlayerEventsListener(plugin, proxyServer)
+    fun providePlayerEventsListener(plugin: ExamplePlugin, proxyServer: ProxyServer, greetPlayerUseCase: GreetPlayerUseCase): PlayerEventsListener {
+        return PlayerEventsListener(plugin, proxyServer, greetPlayerUseCase)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGreetPlayerUseCase(messageProvider: MessageProvider): GreetPlayerUseCase {
+        return GreetPlayerUseCase(messageProvider)
+    }
+
+    @Provides
+    @Singleton
+    fun provideMessageProvider(): MessageProvider {
+        return SimpleMessageProvider()
     }
 }

@@ -1,5 +1,9 @@
 package io.layux.example.greeter.application.usecase
 
+import io.layux.example.greeter.application.contract.MessageProvider
+import io.layux.example.greeter.application.dto.GreetPlayerInput
+import io.layux.example.shared.application.contract.UseCase
+import net.kyori.adventure.text.Component
 import javax.inject.Inject
 
 /**
@@ -13,8 +17,8 @@ import javax.inject.Inject
  *
  * © 2023 Layux LLC. All rights reserved.
  */
-class GreetPlayerUseCase @Inject() constructor(private val messageProvider: MessageProvider) : UseCase<GreetPlayerInput> {
+class GreetPlayerUseCase @Inject() constructor(private val messageProvider: MessageProvider) : UseCase<GreetPlayerInput, Unit> {
     override fun execute(input: GreetPlayerInput) {
-        input.player.sendMessage(messageProvider.provideMessage())
+        input.player.sendMessage(Component.text(messageProvider.getGreetingMessage()))
     }
 }
