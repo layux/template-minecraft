@@ -13,6 +13,15 @@ plugins {
 def toolchainVersion = Integer.parseInt("$java_version")
 
 subprojects {
+    buildscript {
+        repositories {
+            mavenCentral()
+        }
+        dependencies {
+            classpath 'com.guardsquare:proguard-gradle:7.1.0'
+        }
+    }
+
     apply plugin: 'java'
     apply plugin: 'org.jetbrains.kotlin.jvm'
     apply plugin: 'maven-publish'
