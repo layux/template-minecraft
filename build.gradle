@@ -107,6 +107,18 @@ tasks.register('buildAffected') {
     dependsOn affectedProjects.collect { it.tasks.named('build') }
 }
 
+tasks.register('testAffected') {
+    group = 'affected'
+    description = 'Tests projects affected by changes in the current branch'
+
+    // Print a nice list of affected projects
+    def affectedProjects = getAffectedProjects()
+    println "Testing affected projects: ${getAffectedProjectsName(affectedProjects)}."
+
+    // Make our task depend on the test task of each project
+    dependsOn affectedProjects.collect { it.tasks.named('test') }
+}
+
 tasks.register('publishAffected') {
     group = 'affected'
     description = 'Publishes projects affected by changes in the current branch'
