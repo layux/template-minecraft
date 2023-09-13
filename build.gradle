@@ -18,7 +18,7 @@ subprojects {
             mavenCentral()
         }
         dependencies {
-            classpath 'com.guardsquare:proguard-gradle:7.1.0'
+            classpath "com.guardsquare:proguard-gradle:$proguard_version"
         }
     }
 
@@ -95,14 +95,16 @@ def getAffectedProjects() {
     // Get the actual projects matching the names, throw an error if
     // any of the names are invalid
     def affectedProjects = projectNames.collect {
-        def project = project(it)
-
-        if (project == null) {
-            throw new GradleException("Invalid project name: $it")
+        // Run inside try catch to ignore unknown project and continue processing the rest, we are okay with
+        // ignoring unknown projects since they may be new and not yet added to the settings.gradle file or
+        // the opposite where they were removed from the settings.gradle file but the git diff reports that
+        // path was changed
+        try {
+            return project(it)
+        } catch (UnknownProjectException e) {
+            println "Warning: Unknown project $it, ignoring."
         }
-
-        return project
-    }
+    }.findAll { it != null }
 
     return affectedProjects
 }
