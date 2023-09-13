@@ -8,7 +8,7 @@ name: Test all projects
 
 on:
   push:
-    branches: ['template-minecraft']
+    branches: ['main']
   pull_request:
     branches: ['*']
 
