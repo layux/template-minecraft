@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'io.layux.example'
-version = '1.0.0'
+version = '0.0.1'
 description = 'Example Fabric mod'
 ext.mod_id = 'fabric-example'
 ext.mod_name = 'Fabric Example'
@@ -74,5 +74,16 @@ processResources {
                 minecraft: "$minecraft_version",
                 java: "$java_version"
         ])
+    }
+}
+
+publishing {
+    publications {
+        gpr(MavenPublication) {
+            from components.java
+
+            group = project.group
+            version = project.version
+        }
     }
 }

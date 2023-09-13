@@ -9,7 +9,7 @@ plugins {
 }
 
 group = 'io.layux.example'
-version = '1.0.0'
+version = '0.0.1'
 description = 'Example Paper plugin'
 ext.plugin_name = 'Example'
 
@@ -33,4 +33,12 @@ shadowJar {
     archiveBaseName.set(project.plugin_name)
 }
 
-tasks.assemble.dependsOn reobfJar
+publishing {
+    publications {
+        gpr(MavenPublication) {
+            artifact shadowJar
+            group = project.group
+            version = project.version
+        }
+    }
+}

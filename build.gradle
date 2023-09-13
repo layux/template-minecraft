@@ -15,6 +15,7 @@ def toolchainVersion = Integer.parseInt("$java_version")
 subprojects {
     apply plugin: 'java'
     apply plugin: 'org.jetbrains.kotlin.jvm'
+    apply plugin: 'maven-publish'
 
     repositories {
         mavenCentral()
@@ -34,6 +35,19 @@ subprojects {
 
     test {
         useJUnitPlatform()
+    }
+
+    publishing {
+        repositories {
+            maven {
+                name = 'github-packages'
+                url = uri("https://maven.pkg.github.com/layux/template-minecraft")
+                credentials {
+                    username = project.findProperty('gpr.user') ?: System.getenv('GITHUB_USER')
+                    password = project.findProperty('gpr.key') ?: System.getenv('GITHUB_TOKEN')
+                }
+            }
+        }
     }
 }
 

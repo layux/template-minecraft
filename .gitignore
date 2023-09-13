@@ -66,3 +66,15 @@ bin/
 
 ### Server run files
 run/
+
+### Docker persistent volumes
+docker/volumes/
+
+### Environment file
+.env
+.env.local
+.env.development
+.env.test
+.env.qa
+.env.staging
+.env.production

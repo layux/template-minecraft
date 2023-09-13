@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'io.layux.example'
-version = '1.0.0'
+version = '0.0.1'
 description = 'Example Velocity plugin'
 ext.plugin_name = 'ExamplePlugin'
 
@@ -16,6 +16,14 @@ repositories {
 }
 
 dependencies {
+    // Dependency injection
+    implementation "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
+    // Internal dependencies
+    // implementation project(':projects:example-common')
+
+    // External dependencies
     compileOnly "com.velocitypowered:velocity-api:$velocity_api_version"
     kapt "com.velocitypowered:velocity-api:$velocity_api_version"
 }
@@ -25,4 +33,12 @@ shadowJar {
     archiveBaseName.set(project.plugin_name)
 }
 
-tasks.build.dependsOn shadowJar
+publishing {
+    publications {
+        gpr(MavenPublication) {
+            artifact shadowJar
+            group = project.group
+            version = project.version
+        }
+    }
+}
