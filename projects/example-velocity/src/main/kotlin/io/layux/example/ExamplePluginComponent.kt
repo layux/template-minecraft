@@ -1,9 +1,8 @@
-package io.layux.example.component
+package io.layux.example
 
 import dagger.Component
-import io.layux.example.ExamplePlugin
-import io.layux.example.module.ExampleModule
-import io.layux.example.module.VelocityModule
+import io.layux.example.greeter.infrastructure.module.GreeterModule
+import io.layux.example.greeter.infrastructure.module.VelocityModule
 import javax.inject.Singleton
 
 /**
@@ -14,7 +13,7 @@ import javax.inject.Singleton
  *
  * © 2023 Layux LLC. All rights reserved.
  */
-@Component(modules = [VelocityModule::class, ExampleModule::class])
+@Component(modules = [VelocityModule::class, GreeterModule::class])
 @Singleton
 interface ExamplePluginComponent {
     fun inject(plugin: ExamplePlugin)

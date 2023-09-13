@@ -1,10 +1,10 @@
-package io.layux.example.module
+package io.layux.example.greeter.infrastructure.module
 
 import com.velocitypowered.api.proxy.ProxyServer
 import dagger.Module
 import dagger.Provides
 import io.layux.example.ExamplePlugin
-import io.layux.example.listener.PlayerEventsListener
+import io.layux.example.greeter.infrastructure.listener.PlayerEventsListener
 import javax.inject.Singleton
 
 /**
@@ -16,7 +16,7 @@ import javax.inject.Singleton
  * © 2023 Layux LLC. All rights reserved.
  */
 @Module
-class ExampleModule {
+class GreeterModule {
     @Provides
     @Singleton
     fun providePlayerEventsListener(plugin: ExamplePlugin, proxyServer: ProxyServer): PlayerEventsListener {

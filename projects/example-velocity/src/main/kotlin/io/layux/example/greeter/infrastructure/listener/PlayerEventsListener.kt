@@ -1,10 +1,10 @@
-package io.layux.example.listener
+package io.layux.example.greeter.infrastructure.listener
 
 import com.velocitypowered.api.event.Subscribe
 import com.velocitypowered.api.event.player.PlayerChatEvent
 import com.velocitypowered.api.proxy.ProxyServer
 import io.layux.example.ExamplePlugin
-import io.layux.example.contract.Registrable
+import io.layux.example.greeter.domain.contract.Registrable
 import net.kyori.adventure.text.Component
 import javax.inject.Inject
 

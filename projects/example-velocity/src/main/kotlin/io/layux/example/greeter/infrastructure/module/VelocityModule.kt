@@ -1,4 +1,4 @@
-package io.layux.example.module
+package io.layux.example.greeter.infrastructure.module
 
 import com.velocitypowered.api.proxy.ProxyServer
 import dagger.Module
