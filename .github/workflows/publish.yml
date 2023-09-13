@@ -47,4 +47,4 @@ jobs:
       - name: Publish artifacts to Github Packages
         run: ./gradlew publishAffected
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
