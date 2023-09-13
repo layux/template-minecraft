@@ -36,15 +36,9 @@ shadowJar {
 publishing {
     publications {
         gpr(MavenPublication) {
-            // Since we are using shadowJar, we need to use the shadowJar task
-            // to get the artifact
             artifact shadowJar
             group = project.group
             version = project.version
-
-            println "Publishing to GitHub Packages '${group}:${name}:${version}'"
         }
     }
 }
-
-tasks.build.dependsOn shadowJar

@@ -33,4 +33,12 @@ shadowJar {
     archiveBaseName.set(project.plugin_name)
 }
 
-tasks.assemble.dependsOn reobfJar
+publishing {
+    publications {
+        gpr(MavenPublication) {
+            artifact shadowJar
+            group = project.group
+            version = project.version
+        }
+    }
+}
