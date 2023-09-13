@@ -4,7 +4,7 @@ import com.velocitypowered.api.proxy.ProxyServer
 import dagger.Module
 import dagger.Provides
 import io.layux.example.ExamplePlugin
-import io.layux.example.greeter.application.contract.MessageProvider
+import io.layux.example.api.MessageProvider
 import io.layux.example.greeter.application.usecase.GreetPlayerUseCase
 import io.layux.example.greeter.infrastructure.listener.PlayerEventsListener
 import io.layux.example.greeter.infrastructure.provider.SimpleMessageProvider

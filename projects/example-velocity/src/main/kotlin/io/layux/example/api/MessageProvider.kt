@@ -1,4 +1,4 @@
-package io.layux.example.greeter.application.contract
+package io.layux.example.api
 
 /**
  *

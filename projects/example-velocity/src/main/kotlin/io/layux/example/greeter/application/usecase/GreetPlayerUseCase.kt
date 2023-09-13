@@ -1,6 +1,6 @@
 package io.layux.example.greeter.application.usecase
 
-import io.layux.example.greeter.application.contract.MessageProvider
+import io.layux.example.api.MessageProvider
 import io.layux.example.greeter.application.dto.GreetPlayerInput
 import io.layux.example.shared.application.contract.UseCase
 import net.kyori.adventure.text.Component

@@ -1,6 +1,6 @@
 package io.layux.example.greeter.infrastructure.provider
 
-import io.layux.example.greeter.application.contract.MessageProvider
+import io.layux.example.api.MessageProvider
 
 /**
  *
