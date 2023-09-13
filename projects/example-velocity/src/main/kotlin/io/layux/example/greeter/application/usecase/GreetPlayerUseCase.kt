@@ -15,6 +15,6 @@ import javax.inject.Inject
  */
 class GreetPlayerUseCase @Inject() constructor(private val messageProvider: MessageProvider) : UseCase<GreetPlayerInput> {
     override fun execute(input: GreetPlayerInput) {
-
+        input.player.sendMessage(messageProvider.provideMessage())
     }
 }
