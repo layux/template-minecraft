@@ -27,7 +27,7 @@ If using 3rd party project management software, please add a link to the relevan
 -->
 **Ticket:** [ticket](#)
 
-## Screenshots/Recordings
+## Screenshots/Recordings (Optional)
 
 <!-- Visual changes require screenshots or recordings -->
 
