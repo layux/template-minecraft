@@ -1,7 +1,7 @@
 ## Description
 
 <!-- 
-Please do not leave this blank 
+Please do not leave this blank, also you can remove all comments in this template.
 This PR [adds/removes/fixes/replaces] the [feature/bug/etc]. 
 -->
 
@@ -20,6 +20,7 @@ This PR [adds/removes/fixes/replaces] the [feature/bug/etc].
 - [ ] ⏩ Revert
 
 ## Related Tickets & Documents
+
 <!-- 
 Please add the related tickets and documents here. 
 If using 3rd party project management software, please add a link to the relevant item.
@@ -48,6 +49,8 @@ If using 3rd party project management software, please add a link to the relevan
 - [ ] 🗑️ Clear cache
 - [ ] 🚀 Update dependencies
 
+## Checklist
+
 <!--
   Note: PRs with deleted sections will be marked invalid unless its an optional section
 
@@ -56,12 +59,17 @@ If using 3rd party project management software, please add a link to the relevan
   
   For a timely review/response, please avoid force-pushing additional
   commits if your PR already received reviews or comments.
-  
-  Before submitting a Pull Request, please ensure you've done the following:
-  - 📖 Read the project contributing guide: https://github.com/layux/template-minecraft/blob/main/CONTRIBUTING.md
-  - 📖 Read the project code of conduct: https://github.com/layux/template-minecraft/blob/main/CODE_OF_CONDUCT.md
-  - 👷‍♀️ Create small PRs. In most cases, this will be possible.
-  - ✅ Provide tests for your changes.
-  - 📝 Use descriptive commit messages.
-  - 📗 Update any related documentation and include any relevant screenshots.
 -->
+Before submitting a Pull Request, please ensure you've done the following:
+
+- [ ] 📖 Read the project contributing guide: https://github.com/layux/template-minecraft/blob/main/CONTRIBUTING.md
+- [ ] 📖 Read the project code of conduct: https://github.com/layux/template-minecraft/blob/main/CODE_OF_CONDUCT.md
+- [ ] 👷‍♀️ Create small PRs. In most cases, this will be possible.
+- [ ] ✅ Provide tests for your changes.
+- [ ] 📝 Use descriptive commit messages.
+- [ ] 📗 Update any related documentation and include any relevant screenshots.
+- [ ] ✔️ Assign this PR to any relevant users.
+- [ ] 🚫 Add any relevant labels to this PR.
+- [ ] 👁️ Complete the self-review and request a review from at least one contributor.
+- [ ] 🚫 Ensure CI passes (or if failing, please include the details and update the PR status).
+
