@@ -1,3 +1,5 @@
+import proguard.gradle.ProGuardTask
+
 plugins {
     id 'fabric-loom'
 }
@@ -73,6 +75,45 @@ processResources {
                 minecraft: "$minecraft_version",
                 java: "$java_version"
         ])
+    }
+}
+
+// Loom generates a shaded jar by default, however we still want to obfuscate it for
+// distribution. This task will run ProGuard on the shaded jar and replace it with the
+// obfuscated one.
+def jarBaseName = "${project.name}-${project.version}"
+def jarFile = file("$buildDir/libs/${jarBaseName}.jar")
+def proguardJar = file("$buildDir/libs/${jarBaseName}-proguard.jar")
+
+tasks.register('proguard', ProGuardTask) {
+    dependsOn build
+
+    group = 'build'
+    description = 'Runs ProGuard on the shaded jar'
+
+    println "ProGuarding ${jarFile.name} to ${proguardJar.name}"
+
+    outputs.upToDateWhen { false }
+    configuration rootProject.file('.proguard/fabric.pro')
+
+    injars jarFile
+    outjars proguardJar
+    // Include all runtime dependencies
+    libraryjars configurations.findByName('runtimeClasspath').getFiles()
+    // Java 8
+    libraryjars "${System.getProperty("java.home")}/lib/rt.jar"
+    // Java 9+ compatibility
+    libraryjars "${System.getProperty("java.home")}/jmods/java.base.jmod"
+    libraryjars "${System.getProperty("java.home")}/jmods/java.desktop.jmod"
+    libraryjars "${System.getProperty("java.home")}/jmods/java.logging.jmod"
+    libraryjars "${System.getProperty("java.home")}/jmods/jdk.unsupported.jmod"
+
+    doLast {
+        //if (!jarFile.delete())
+        //    throw new IllegalStateException("Failed to delete ${jarFile.name}")
+
+        //if (!proguardJar.renameTo(jarFile))
+        //    throw new IllegalStateException("Failed to rename ${proguardJar.name} to ${jarFile.name}")
     }
 }
 
