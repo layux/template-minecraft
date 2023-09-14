@@ -26,6 +26,8 @@ subprojects {
     apply plugin: 'org.jetbrains.kotlin.jvm'
     apply plugin: 'maven-publish'
 
+    version = "${major_version}.${minor_version}.${patch_version}"
+
     repositories {
         mavenCentral()
     }
