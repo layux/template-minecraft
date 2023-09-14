@@ -17,6 +17,7 @@
 -repackageclasses 'io.layux.example'
 
 # Don't warn about missing classes
+-dontwarn com.google.**
 -dontwarn com.velocitypowered.api.**
 -dontwarn net.kyori.adventure.text.**
 -dontwarn org.slf4j.**
