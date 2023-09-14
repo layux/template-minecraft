@@ -2,10 +2,12 @@ package io.layux.example
 
 import dagger.Component
 import io.layux.example.greeter.infrastructure.module.GreeterModule
-import io.layux.example.greeter.infrastructure.module.VelocityModule
+import io.layux.example.shared.infrastructure.module.VelocityModule
 import javax.inject.Singleton
 
 /**
+ * Main DI container for the plugin.
+ *
  * @author Fernando Lopez <fernando.lopez@layux.io>
  * @project template-minecraft
  * @package io.layux.example.component

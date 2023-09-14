@@ -8,7 +8,6 @@ plugins {
 group = 'io.layux.example'
 version = '0.0.1'
 description = 'Example Velocity plugin'
-ext.plugin_name = 'ExamplePlugin'
 
 repositories {
     maven {
@@ -27,14 +26,19 @@ dependencies {
     kapt "com.velocitypowered:velocity-api:$velocity_api_version"
 }
 
+// Shadow the jar to include all runtime dependencies
+shadowJar {
+    archiveClassifier.set('')
+}
+
+jar.finalizedBy shadowJar
+
 // Obfuscate the shaded jar using ProGuard
 def jarFile = shadowJar.outputs.files.singleFile
 def proguardJar = file("$buildDir/libs/${project.name}-proguard.jar")
 
-println "ProGuarding ${jarFile.name} to ${proguardJar.name}"
-
 tasks.register('proguard', ProGuardTask) {
-    //dependsOn shadowJar
+    dependsOn shadowJar
 
     group = 'build'
     description = 'Runs ProGuard on the shaded jar'
@@ -63,13 +67,11 @@ tasks.register('proguard', ProGuardTask) {
     }
 }
 
-jar.finalizedBy shadowJar
-
 // Publish the obfuscated jar to our artifact repository
 publishing {
     publications {
         gpr(MavenPublication) {
-            artifact proguardJar
+            artifact jarFile
             group = project.group
             version = project.version
         }
