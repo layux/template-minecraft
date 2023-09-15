@@ -7,6 +7,7 @@ import org.bukkit.craftbukkit.v1_20_R1.entity.CraftPlayer
 import org.bukkit.entity.Player
 
 /**
+ * A simple command that retrieves the latency between the server and the client.
  *
  * @project template-minecraft
  * @package io.layux.example.command
