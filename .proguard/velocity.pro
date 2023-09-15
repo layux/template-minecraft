@@ -5,16 +5,17 @@
 }
 
 # Keep the public API
--keep class io.layux.example.api.** { *; }
--keepclassmembers class io.layux.example.api.**
+-keep class io.layux.**.api.** { *; }
+-keepclassmembers class io.layux.**.api.**
 
 # Keep event handlers
 -keep,allowobfuscation class * {
     @com.velocitypowered.api.event.Subscribe <methods>;
 }
 
-# If your goal is obfuscating and making things harder to read, repackage your classes with this rule
--repackageclasses 'io.layux.example'
+# General directives
+-dontshrink
+-dontoptimize
 
 # Don't warn about missing classes
 -dontwarn com.google.**

@@ -44,7 +44,7 @@ tasks.register('proguard', ProGuardTask) {
     description = 'Runs ProGuard on the shaded jar'
 
     outputs.upToDateWhen { false }
-    configuration 'configuration.pro'
+    configuration rootProject.file('.proguard/velocity.pro')
 
     injars jarFile
     outjars proguardJar
@@ -71,7 +71,7 @@ tasks.register('proguard', ProGuardTask) {
 publishing {
     publications {
         gpr(MavenPublication) {
-            artifact jarFile
+            artifact proguardJar
             group = project.group
             version = project.version
         }
