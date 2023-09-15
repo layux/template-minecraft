@@ -1,4 +1,5 @@
 import net.minecrell.pluginyml.bukkit.BukkitPluginDescription
+import proguard.gradle.ProGuardTask
 
 plugins {
     id 'com.github.johnrengelman.shadow'
@@ -9,13 +10,20 @@ plugins {
 }
 
 group = 'io.layux.example'
-version = '0.0.1'
 description = 'Example Paper plugin'
-ext.plugin_name = 'Example'
+ext.plugin_name = 'ExamplePlugin'
 
 dependencies {
+    // Dependency injection
+    implementation "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
     // External dependencies
     paperweightDevelopmentBundle "io.papermc.paper:dev-bundle:$paper_api_version"
+}
+
+assemble {
+    dependsOn reobfJar
 }
 
 bukkit {
@@ -28,17 +36,63 @@ bukkit {
     authors = ["Layux"]
 }
 
+// Shadow the jar to include all runtime dependencies
 shadowJar {
     archiveClassifier.set('')
-    archiveBaseName.set(project.plugin_name)
 }
 
+jar.finalizedBy shadowJar
+
+// Obfuscate the shaded jar using ProGuard
+def jarBaseFile = "$buildDir/libs/${project.name}-${project.version}"
+def jarFile = file("$jarBaseFile-dev-all.jar")
+def proguardJar = file("$jarBaseFile-proguard.jar")
+def finalJar = file("${jarBaseFile}.jar")
+
+println "Running ProGuard on ${jarFile} to ${proguardJar}"
+
+tasks.register('proguard', ProGuardTask) {
+    dependsOn shadowJar
+
+    group = 'build'
+    description = 'Runs ProGuard on the shaded jar'
+
+    outputs.upToDateWhen { false }
+    configuration rootProject.file('configuration.paper.pro')
+
+    injars jarFile
+    outjars proguardJar
+    // Include all runtime dependencies
+    libraryjars configurations.findByName('runtimeClasspath').getFiles()
+    // Java 8
+    libraryjars "${System.getProperty("java.home")}/lib/rt.jar"
+    // Java 9+ compatibility
+    libraryjars "${System.getProperty("java.home")}/jmods/java.base.jmod"
+    libraryjars "${System.getProperty("java.home")}/jmods/java.desktop.jmod"
+    libraryjars "${System.getProperty("java.home")}/jmods/java.logging.jmod"
+    libraryjars "${System.getProperty("java.home")}/jmods/jdk.unsupported.jmod"
+
+    doLast {
+        if (!jarFile.delete())
+            throw new IllegalStateException("Failed to delete ${jarFile.name}")
+
+        if (!proguardJar.renameTo(finalJar))
+            throw new IllegalStateException("Failed to rename ${proguardJar.name} to ${finalJar.name}")
+    }
+}
+
+// Publish the obfuscated jar to our artifact repository
 publishing {
     publications {
         gpr(MavenPublication) {
-            artifact shadowJar
+            artifact finalJar
             group = project.group
             version = project.version
         }
     }
+}
+
+// Run the server
+runServer {
+    pluginJars.from finalJar
 }

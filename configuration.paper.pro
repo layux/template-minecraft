@@ -13,11 +13,8 @@
     @org.bukkit.event.EventHandler <methods>;
 }
 
-# If your goal is obfuscating and making things harder to read, repackage your classes with this rule
--repackageclasses 'io.layux.**'
-
 # Don't warn about missing classes
--dontwarn org.bukkit.**
+
 
 -dontshrink
 -dontoptimize
