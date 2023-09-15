@@ -1,7 +1,3 @@
-# General directives
--dontoptimize
--dontshrink
-
 # Keep your main class
 -keep public class * extends net.fabricmc.api.ModInitializer {
     public void onInitialize();
@@ -15,9 +11,22 @@
     public void onInitializeServer();
 }
 
+-keep public class * extends net.fabricmc.fabric.api.datagen.v1.DataGeneratorEntrypoint {
+    public void onInitializeDataGenerator(net.fabricmc.fabric.api.datagen.v1.FabricDataGenerator);
+}
+
 # Keep the public API
--keep class io.layux.**.api.** { *; }
--keepclassmembers class io.layux.**.api.**
+# -keep class io.layux.**.api.** { *; }
+# -keepclassmembers class io.layux.**.api.**
+
+# Keep mixin classes which are annotated with @Mixin
+-keepclasseswithmembers @org.spongepowered.asm.mixin.Mixin class * {
+    @org.spongepowered.asm.mixin.injection.Inject <methods>;
+}
+
+# General directives
+-dontoptimize
+-dontshrink
 
 # Don't warn about missing classes
 -dontwarn net.minecraft.**

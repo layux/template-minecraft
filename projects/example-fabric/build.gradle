@@ -81,12 +81,11 @@ processResources {
 // Loom generates a shaded jar by default, however we still want to obfuscate it for
 // distribution. This task will run ProGuard on the shaded jar and replace it with the
 // obfuscated one.
-def jarBaseName = "${project.name}-${project.version}"
-def jarFile = file("$buildDir/libs/${jarBaseName}.jar")
-def proguardJar = file("$buildDir/libs/${jarBaseName}-proguard.jar")
+def jarFile = remapJar.outputs.files.singleFile
+def proguardJar = file("$buildDir/libs/${project.name}-proguard.jar")
 
 tasks.register('proguard', ProGuardTask) {
-    dependsOn build
+    dependsOn remapJar
 
     group = 'build'
     description = 'Runs ProGuard on the shaded jar'

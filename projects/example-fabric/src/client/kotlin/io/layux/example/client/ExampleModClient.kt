@@ -1,5 +1,6 @@
 package io.layux.example.client
 
+import io.layux.example.Constants
 import net.fabricmc.api.ClientModInitializer
 
 /**
@@ -15,5 +16,6 @@ import net.fabricmc.api.ClientModInitializer
 object ExampleModClient : ClientModInitializer {
 	override fun onInitializeClient() {
 		// This entrypoint is suitable for setting up client-specific logic, such as rendering.
+        println("Hello Fabric world! (client) - ${Constants.MOD_ID}")
 	}
 }

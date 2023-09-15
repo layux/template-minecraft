@@ -1,5 +1,6 @@
 package io.layux.example
 
+import io.layux.example.command.PingCommand
 import org.bukkit.plugin.java.JavaPlugin
 
 /**
@@ -14,8 +15,8 @@ import org.bukkit.plugin.java.JavaPlugin
  */
 class ExamplePlugin : JavaPlugin() {
     override fun onEnable() {
-
-
+        // Register PingCommand into the command map using reflection.
+        server.commandMap.register("ping", PingCommand())
         logger.info("ExamplePlugin enabled!")
     }
 

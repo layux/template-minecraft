@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory
  * © 2023 Layux LLC. All rights reserved.
  */
 object ExampleMod : ModInitializer {
-    private val logger = LoggerFactory.getLogger("fabric-example")
+    private val logger = LoggerFactory.getLogger(Constants.MOD_ID)
 
 	override fun onInitialize() {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
