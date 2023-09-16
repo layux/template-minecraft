@@ -1,7 +1,11 @@
 # Keep your main class
--keep public class io.layux.example.ExamplePlugin {
-    @com.google.inject.Inject *;
-    <init>();
+-keep @com.velocitypowered.api.plugin.Plugin public class * {
+    # Keep @Inject constructor and fields, we should allow com.google.inject and javax.inject
+    @com.google.inject.Inject <init>(...);
+    @javax.inject.Inject <init>(...);
+
+    # Do the same but for fields
+    @javax.inject.Inject *;
 }
 
 # Keep the public API

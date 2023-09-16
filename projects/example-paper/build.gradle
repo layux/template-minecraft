@@ -44,10 +44,8 @@ shadowJar {
 jar.finalizedBy shadowJar
 
 // Obfuscate the shaded jar using ProGuard
-def jarBaseFile = "$buildDir/libs/${project.name}-${project.version}"
-def jarFile = file("$jarBaseFile-dev-all.jar")
-def proguardJar = file("$jarBaseFile-proguard.jar")
-def finalJar = file("${jarBaseFile}.jar")
+def jarFile = shadowJar.outputs.files.singleFile
+def proguardJar = file("$jarFile-proguard.jar")
 
 println "Running ProGuard on ${jarFile} to ${proguardJar}"
 
@@ -58,7 +56,7 @@ tasks.register('proguard', ProGuardTask) {
     description = 'Runs ProGuard on the shaded jar'
 
     outputs.upToDateWhen { false }
-    configuration rootProject.file('configuration.paper.pro')
+    configuration rootProject.file('.proguard/paper.pro')
 
     injars jarFile
     outjars proguardJar
@@ -76,7 +74,7 @@ tasks.register('proguard', ProGuardTask) {
         if (!jarFile.delete())
             throw new IllegalStateException("Failed to delete ${jarFile.name}")
 
-        if (!proguardJar.renameTo(finalJar))
+        if (!proguardJar.renameTo(jarFile))
             throw new IllegalStateException("Failed to rename ${proguardJar.name} to ${finalJar.name}")
     }
 }
@@ -85,7 +83,7 @@ tasks.register('proguard', ProGuardTask) {
 publishing {
     publications {
         gpr(MavenPublication) {
-            artifact finalJar
+            artifact jarFile
             group = project.group
             version = project.version
         }
@@ -94,5 +92,5 @@ publishing {
 
 // Run the server
 runServer {
-    pluginJars.from finalJar
+    pluginJars.from jarFile
 }

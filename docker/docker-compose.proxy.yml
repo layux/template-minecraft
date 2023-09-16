@@ -13,7 +13,7 @@ services:
     volumes:
       - ../config/proxy/velocity.toml:/config/velocity.toml
       - ../config/proxy/forwarding-secret.txt:/config/forwarding-secret.txt
-      - ../projects/example-velocity/build/libs/example-velocity.jar:/plugins/example-velocity.jar
+      - ../projects/example-velocity/build/libs/example-velocity-0.0.3.jar:/plugins/example-velocity-0.0.3.jar
       # - ./volumes/proxy:/server # Uncomment to use a persistent volume and inspect files
     ports:
       - '25565:25565'

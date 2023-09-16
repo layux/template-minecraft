@@ -6,7 +6,6 @@ plugins {
 }
 
 group = 'io.layux.example'
-version = '0.0.1'
 description = 'Example Velocity plugin'
 
 repositories {
