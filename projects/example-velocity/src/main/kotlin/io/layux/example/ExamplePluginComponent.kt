@@ -2,7 +2,7 @@ package io.layux.example
 
 import dagger.Component
 import io.layux.example.greeter.infrastructure.module.GreeterModule
-import io.layux.example.shared.infrastructure.module.VelocityModule
+import io.layux.example.shared.module.VelocityModule
 import javax.inject.Singleton
 
 /**

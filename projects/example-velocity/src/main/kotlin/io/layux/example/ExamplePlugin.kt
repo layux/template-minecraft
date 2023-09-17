@@ -7,7 +7,7 @@ import com.velocitypowered.api.plugin.annotation.DataDirectory
 import com.velocitypowered.api.proxy.ProxyServer
 import io.layux.example.greeter.infrastructure.listener.PlayerEventsListener
 import io.layux.example.greeter.infrastructure.module.GreeterModule
-import io.layux.example.shared.infrastructure.module.VelocityModule
+import io.layux.example.shared.module.VelocityModule
 import org.slf4j.Logger
 import java.nio.file.Path
 import javax.inject.Inject

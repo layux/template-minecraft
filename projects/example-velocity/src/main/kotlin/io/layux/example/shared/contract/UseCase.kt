@@ -1,4 +1,4 @@
-package io.layux.example.shared.application.contract
+package io.layux.example.shared.contract
 
 /**
  *
